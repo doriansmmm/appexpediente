@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 
 import LogoMabe from '../archivos/logomabe.png'
@@ -25,10 +25,13 @@ const settings = ['Cerrar sesión'];
 function ResponsiveAppBar() {
 
   const navigate = useNavigate()
-
+  const location = useLocation();
   const { datosUsuario, ventana } = useAuth()
   const { nombre } = datosUsuario
-
+  useEffect(() => {
+    
+  console.log(location.pathname);
+  }, [])
  
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -63,7 +66,7 @@ function ResponsiveAppBar() {
 
           </Box>
           {
-          ventana !=='' ?(
+          location.pathname !=='/login' && location.pathname !=='/registro' ?(
           <Box sx={{ flexGrow: 0 }}>
             <Typography
               variant="h5"
