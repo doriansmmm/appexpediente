@@ -48,7 +48,7 @@ const ConsultaMedico = () => {
 
     const { validarToken } = useAuth()
 
-    const { getDetallesCita, datos, crearCita, setError } = useConsulta()
+    const { getDetallesCita, datos, crearCita, setError, setBandUltDiagn, bandUltDiagn } = useConsulta()
 
     useEffect(() => {
         validarToken()
@@ -88,53 +88,53 @@ const ConsultaMedico = () => {
             sintomas,
             medicamentos
         } = datos
-        
+
         if (activeStep === 0) {
-            
+
             if (pacienteEdad == "" || pacienteEdad == 0) {
                 setError({ band: true, texto: "Debes ingresar la edad" })
                 return
-            }else  if (pacienteTa == "") {
+            } else if (pacienteTa == "") {
                 setError({ band: true, texto: "Debes ingresar la T/A" })
                 return
-            }else  if (pacienteFrecCar == "") {
+            } else if (pacienteFrecCar == "") {
                 setError({ band: true, texto: "Debes ingresar la frecuencia cardíaca" })
                 return
-            }else  if (pacienteFrecResp == "") {
+            } else if (pacienteFrecResp == "") {
                 setError({ band: true, texto: "Debes ingresar la frecuencia respiratoria" })
                 return
-            }else  if (pacienteSato == "") {
+            } else if (pacienteSato == "") {
                 setError({ band: true, texto: "Debes ingresar el campo SATO 2%" })
                 return
-            }else  if (pacienteTemp == "") {
+            } else if (pacienteTemp == "") {
                 setError({ band: true, texto: "Debes ingresar la temperatura" })
                 return
-            }else  if (pacientePeso == "") {
+            } else if (pacientePeso == "") {
                 setError({ band: true, texto: "Debes ingresar el peso" })
                 return
-            }else  if (pacienteTalla == "") {
+            } else if (pacienteTalla == "") {
                 setError({ band: true, texto: "Debes ingresar la Talla" })
                 return
-            }else  if (alergias.length <=0 || alergias.length == undefined) {
+            } else if (alergias.length <= 0 || alergias.length == undefined) {
                 setError({ band: true, texto: "Debes ingresar al menos una alergia" })
                 return
             }
-        }else if (activeStep === 1) {
-            if (pacienteExploracion=="") {
+        } else if (activeStep === 1) {
+            if (pacienteExploracion == "") {
                 setError({ band: true, texto: "Debes ingresar la exploración física" })
                 return
-            }else  if (pacientePlan=="") {
+            } else if (pacientePlan == "") {
                 setError({ band: true, texto: "Debes ingresar el plan" })
                 return
-            }else  if (diagnosticos.length <=0 || diagnosticos.length == undefined) {
+            } else if (diagnosticos.length <= 0 || diagnosticos.length == undefined) {
                 setError({ band: true, texto: "Debes ingresar al menos un diagnostico" })
                 return
-            }else  if (sintomas.length <=0 || sintomas.length == undefined) {
+            } else if (sintomas.length <= 0 || sintomas.length == undefined) {
                 setError({ band: true, texto: "Debes ingresar al menos un síntoma" })
                 return
             }
-        }else if (activeStep === 2) {
-            if (medicamentos.length <=0 || medicamentos.length == undefined) {
+        } else if (activeStep === 2) {
+            if (medicamentos.length <= 0 || medicamentos.length == undefined) {
                 setError({ band: true, texto: "Debes ingresar al menos un medicamento" })
                 return
             }
@@ -148,12 +148,12 @@ const ConsultaMedico = () => {
     };
 
     const handleReset = () => {
-        const imagenn= "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUGFdjYAACAAAFAAGq1chRAAAAAElFTkSuQmCC"
+        const imagenn = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUGFdjYAACAAAFAAGq1chRAAAAAElFTkSuQmCC"
         const {
             medicoFirma
         } = datos
         console.log(medicoFirma);
-        if(medicoFirma == imagenn || medicoFirma == ""){
+        if (medicoFirma == imagenn || medicoFirma == "") {
             setError({ band: true, texto: "Debes ingresar la firma" })
             return
         }
@@ -195,6 +195,10 @@ const ConsultaMedico = () => {
                     <Typography component="h1" variant="h4">
                         Consulta
                     </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                    <Box sx={{ flex: '1 1 auto' }} />
+                    <Button style={{background: "#008aa7", color: "#fff", marginBottom: "5px"}} onClick={() => {setBandUltDiagn(true)}}>Último diagnóstico</Button>
                 </Box>
                 <Box>
                     <Stepper activeStep={activeStep}>

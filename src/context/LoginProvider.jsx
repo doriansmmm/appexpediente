@@ -36,6 +36,8 @@ const LoginProvider = ({ children }) => {
                         navigate('/modulos')
                     }else if (idRol==2){
                         navigate('/medico')
+                    }else if (idRol==3){
+                        navigate('/admin')
                     }else{
                         setError('Correo o contraseña incorrectos')
                     }

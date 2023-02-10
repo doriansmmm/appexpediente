@@ -13,6 +13,8 @@ const ConsultaProvider = ({ children }) => {
   // eslint-disable-next-line
   const { validarToken, guidCita } = useAuth()
 
+  const [ bandUltDiagn, setBandUltDiagn] = useState(false)
+
   // eslint-disable-next-line
   const [loadTime, setLoadTime] = useState(false)
   const [exito, setExito] = useState(false)
@@ -185,9 +187,6 @@ const ConsultaProvider = ({ children }) => {
           'Content-Type': 'application/json',
         }
       })
-      console.log("1111111");
-      console.log(response.data.response);
-      console.log("222");
       setDatos({
         ...datos,
         pacienteNombre: response.data.response.paciente.userNombre,
@@ -204,7 +203,7 @@ const ConsultaProvider = ({ children }) => {
         medicoLogo: response.data.response.detallesMedico.medLogo,
         medicoFechaCita: response.data.response.cita.cDcita.split('T')[0],
         medicoTelefono: response.data.response.medico.userPhone,
-        medicoUnidadTrabajo: response.data.response.medico.userCentroTrabajo,
+        medicoUnidadTrabajo: response.data.response.unidadTrabajo,
         medicoFirma: json2!=null?json2.medicoFirma: '',
         pacienteFrecCar: json2!=null?json2.pacienteFrecCar: '',
         pacienteFrecResp: json2!=null?json2.pacienteFrecResp: '',
@@ -219,8 +218,8 @@ const ConsultaProvider = ({ children }) => {
         sintomas: json2!=null?json2.sintomas: [],
         medicamentos: json2!=null?json2.medicamentos: [],
         alergias: json2!=null?json2.alergias: [],
-        diagnosticos: json2!=null?json2.diagnosticos: []
-
+        diagnosticos: json2!=null?json2.diagnosticos: [],
+        ultimoDiagnostico: response.data.response.uDiagnostico
       })
       
       const responseAlergias = await axios.get(`https://mabeexpedientemedico.azurewebsites.net/api/alergia/all?token=${tokens}`, {
@@ -359,7 +358,9 @@ const ConsultaProvider = ({ children }) => {
         handleChangeMedicamento2,
         setMedicamentoSeleccionado,
         getDetallesCita,
-        crearCita
+        crearCita,
+        setBandUltDiagn,
+        bandUltDiagn
       }}
     >
       {children}

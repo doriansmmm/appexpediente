@@ -22,6 +22,7 @@ const TablaHistorial = () => {
         { id: 'tipoCita', label: 'Tipo cita' },
         { id: 'centroTrabajo', label: 'Centro de trabajo' },
         { id: 'Estatus', label: 'Estatus' },
+        { id: 'Confirmacion', label: 'Confirmación' },
         { id: 'detalles', label: 'Detalles' },
         { id: 'Acciones', label: 'Acciones' }
     ];
@@ -61,19 +62,23 @@ const TablaHistorial = () => {
                                         key={row['id']}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
-                                        <TableCell key="fecha" align="center">{row['fecha']}</TableCell>
-                                        <TableCell key="tipoCita" align="center">{row['tipoCita']}</TableCell>
-                                        <TableCell key="centroTrabajo" align="center">{row['centroT']}</TableCell>
-                                        <TableCell key="Estatus" align="center">{row['stage']}</TableCell>
+                                        <TableCell align="center">{row['fecha']}</TableCell>
+                                        <TableCell align="center">{row['tipoCita']}</TableCell>
+                                        <TableCell align="center">{row['centroT']}</TableCell>
+                                        <TableCell align="center">{row['stage']}</TableCell>
+                                        <TableCell align="center">{row['asistencia']}</TableCell>
                                         <TableCell align="center"><Button onClick={() => { }}>Ver mas</Button></TableCell>
-                                        <TableCell key="Acciones" align="center">{row['cCsId'] !== 4 && row['cCsId'] !== 5 ? (
-                                        <><Tooltip title="Cancelar cita">
+                                        {
+                                            row.asistencia !== 'Confirmada' ?(
+                                        <TableCell align="center">{row['cCsId'] !== 4 && row['cCsId'] !== 5 ? (
+                                        <><Tooltip title="Confirmar cita">
                                             <CheckCircleIcon onClick={() => confirmarCita(row['cGuid'])} style={{ cursor: 'pointer', margin: "5px", color: "#36B04B" }}/>
                                         </Tooltip>
                                         <Tooltip title="Cancelar cita">
                                             <CancelIcon onClick={() => cancelarCita(row['cGuid'])} style={{ cursor: 'pointer', margin: "5px", color: "#CF2908" }}/>
                                         </Tooltip></>
-                                        ):null}</TableCell>
+                                        ):null}</TableCell>):null
+                            }
                                     </TableRow>
                                 );
                             })}

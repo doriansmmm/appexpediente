@@ -16,6 +16,8 @@ import HistorialMedico from './components/medico/historialmedico/HistorialMedico
 import HistorialDisponibles  from './components/medico/historialdisponibles/HistorialDisponibles'
 import Consulta from './components/medico/consulta/Consulta'
 import Receta from './components/medico/receta/Receta'
+import Admin from './components/admin/Admin'
+import Usuario from './components/usuario/Usuario'
 
 //importar context
 import { AuthProvider } from './context/AuthProvider'
@@ -38,6 +40,8 @@ export default function App() {
           <Route exact path="/citasdisponibles" element={<HistorialDisponibles />} />
           <Route exact path="/consulta" element={<Consulta />} />
           <Route exact path="/receta" element={<Receta />} />
+          <Route exact path="/admin" element={<Admin />} />
+          <Route exact path="/usuario" element={<Usuario />} />
           <Route path="/" element={<Navigate replace to="/login" />} />
         </Routes>
       </AuthProvider>

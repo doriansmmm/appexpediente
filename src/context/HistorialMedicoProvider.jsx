@@ -79,7 +79,7 @@ const HistorialMedicoProvider = ({ children }) => {
           'Content-Type': 'application/json',
         }
       })
-      console.log(response);
+      
       
       const json = {
         pacienteNombre: response.data.paciente.userNombre,
