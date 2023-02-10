@@ -122,9 +122,9 @@ const UserProvider = ({ children }) => {
     }
     const subirArchivos = e => {
         setArchivos(e)
-        console.log(e[0]);
+        
         var reader = new FileReader()
-        if(e[0]){
+        if(e !== null){
             reader.readAsDataURL(e[0])
             reader.onload = () => {
                 var base64 = reader.result
@@ -133,6 +133,11 @@ const UserProvider = ({ children }) => {
                     medLogo: base64
                 })
             }
+        }else{
+            setDatosUsuario({
+                ...datosUsuario,
+                medLogo: ''
+            })
         }
     }
     return (

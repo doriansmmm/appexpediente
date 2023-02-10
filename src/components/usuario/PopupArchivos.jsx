@@ -30,8 +30,7 @@ export default function PopupArchivos() {
 
     const handleClose = () => {
         subirArchivos(null)
-        setBandArchivos(false);
-        
+        setBandArchivos(false);        
     };
     const insertar = async () => {
         console.log(archivos);
