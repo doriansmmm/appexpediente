@@ -12,22 +12,21 @@ import TablePagination from '@mui/material/TablePagination';
 
 import { useNavigate } from 'react-router-dom';
 
-import useHistorialMedico from '../../../hooks/useHistorialMedico';
-import useAuth from '../../../hooks/useAuth';
+import usePacientes from '../../hooks/usePacientes';
+import useAuth from '../../hooks/useAuth';
 
-const TablaHistorial = () => {
+const TablaUsuarios = () => {
     const navigate = useNavigate()
 
-    const { setGuidCita, setVentana } = useAuth()
+    const { setVentana } = useAuth()
 
-    const { citasUsuario, consultarReceta } = useHistorialMedico()
+    const { usuariosFiltro } = usePacientes()
     const columns = [
-        { id: 'fecha', label: 'Fecha' },
-        { id: 'tipoCita', label: 'Tipo cita' },
-        { id: 'Paciente', label: 'Paciente' },
-        { id: 'Estatus', label: 'Estatus' },
-        { id: 'centroTrabajo', label: 'Centro de trabajo' },
-        { id: 'Receta', label: 'Receta' },
+        { id: 'Nombre', label: 'Nombre' },
+        { id: 'PrimerApellido', label: 'Primer apellido' },
+        { id: 'SegundoApellido', label: 'Segundo apellido' },
+        { id: 'Correo', label: 'Correo' },
+        { id: 'Rol', label: 'Rol' },
         { id: 'detalles', label: 'Detalles' }
     ];
     // eslint-disable-next-line
@@ -43,14 +42,11 @@ const TablaHistorial = () => {
     };
 
     const getConsulta = (e) => {
-        localStorage.setItem('idcita', e)
-        setGuidCita(e)
-        navigate('/consulta')
-    }
-    const getDetalles = (e) => {
-        localStorage.setItem('idCitaMabe', e)
-        setVentana('/medico')
-        navigate('/consultapaciente')
+        let tokens = localStorage.getItem('tokenid');   
+        console.log(tokens);
+        localStorage.setItem('idguidpaciente', e.userGuid)        
+        setVentana('/pacientes')
+        navigate('/historialcitaspaciente')
     }
     return (
         <Paper>
@@ -69,23 +65,20 @@ const TablaHistorial = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {citasUsuario
+                        {usuariosFiltro
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row) => {
                                 return (
                                     <TableRow
-                                        key={row['id']}
+                                        key={row.userGuid}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
-                                        <TableCell key="fecha" align="center">{row['fecha']}</TableCell>
-                                        <TableCell key="tipoCita" align="center">{row['tipoCita']}</TableCell>
-                                        <TableCell key="Paciente" align="center">{row['paciente']}</TableCell>
-                                        <TableCell key="Estatus" align="center">{row['stage']}</TableCell>
-                                        <TableCell key="centroTrabajo" align="center">{row['centroT']}</TableCell>
-                                        <TableCell key="Acciones" align="center">{row['stage'] === "finalizada" ? (<Tooltip title="Ver receta"><AssignmentIcon onClick={() => consultarReceta(row['cGuid'])} style={{ cursor: 'pointer', margin: "5px", color: "#CF2908" }}/></Tooltip>):null}</TableCell>
-                                        <TableCell align="center">{row['cCsId'] === 2 || row['cCsId'] === 3 ? (<Button onClick={() => getConsulta(row['cGuid'])}>Ver mas</Button>): row['cCsId'] === 5 ? (<Button onClick={() => getDetalles(row['cGuid'])}>Ver mas</Button>):null
-                                        }</TableCell>
-                                            
+                                        <TableCell align="center">{row['userNombre']}</TableCell>
+                                        <TableCell align="center">{row['userPApellido']}</TableCell>
+                                        <TableCell align="center">{row['userSApellido']}</TableCell>
+                                        <TableCell align="center">{row['userEmail']}</TableCell>
+                                        <TableCell align="center">{row['rolName']}</TableCell>
+                                        <TableCell align="center"><Button onClick={() => getConsulta(row)}>Ver detalles</Button></TableCell>
                                     </TableRow>
                                 );
                             })}
@@ -95,7 +88,7 @@ const TablaHistorial = () => {
             <TablePagination
                 rowsPerPageOptions={[10, 25, 100]}
                 component="div"
-                count={citasUsuario.length}
+                count={usuariosFiltro.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}
@@ -105,4 +98,4 @@ const TablaHistorial = () => {
     )
 }
 
-export default TablaHistorial
+export default TablaUsuarios

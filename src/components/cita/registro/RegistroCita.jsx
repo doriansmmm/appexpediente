@@ -57,10 +57,8 @@ export default function RegistroCita() {
     validarToken()
 
     if (horarioSelect === "" || horarioSelect === undefined || horarioSelect === null) {
-      console.log(horarioSelect)
       setError2('Necesitas seleccionar un horario')
     } else {
-      console.log("w");
       setError2('')
       setShowPdf(!showPdf);
     }

@@ -28,7 +28,6 @@ const AuthProvider = ({ children }) => {
 
     const validarToken = () => {
         let token = localStorage.getItem('tokenid');
-        //console.log(decodeToken(token));
         const nom = token == null ? "" : decodeToken(token)['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']
         setDatosUsuario({
             nombre: nom
@@ -45,7 +44,7 @@ const AuthProvider = ({ children }) => {
         setValidToken(isExpired(token))
 
         if (!isExpired(token)) {
-            console.log(decodeToken(token));
+
             const nom = decodeToken(token)['http://schemas.microsoft.com/ws/2008/06/identity/claims/name']
             setDatosUsuario({
                 nombre: nom

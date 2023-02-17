@@ -28,10 +28,6 @@ function ResponsiveAppBar() {
   const location = useLocation();
   const { datosUsuario, ventana } = useAuth()
   const { nombre } = datosUsuario
-  useEffect(() => {
-    
-  console.log(location.pathname);
-  }, [])
  
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -87,7 +83,7 @@ function ResponsiveAppBar() {
               {nombre}
             </Typography>
             {ventana!=='NA'?(<Tooltip style={{ right: 0 }} title="">
-                <IconButton sx={{ p: 1 }} onClick={() => { localStorage.removeItem('jsonexpmed'); navigate(ventana)}}>
+                <IconButton sx={{ p: 1 }} onClick={() => { localStorage.removeItem('jsonexpmed'); console.log(ventana); navigate(ventana)}}>
                   <ArrowBackIosIcon height={40} width={40}/>
                 </IconButton>
 

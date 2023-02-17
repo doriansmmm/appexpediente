@@ -49,8 +49,6 @@ const LoginProvider = ({ children }) => {
                 setLoadTime(false)
 
             } catch (e) {
-
-                console.log(e.response.data.response);
                 setError('Correo o contraseña incorrectos')
                 setLoadTime(false)
             }

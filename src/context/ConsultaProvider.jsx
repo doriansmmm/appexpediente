@@ -313,13 +313,13 @@ const ConsultaProvider = ({ children }) => {
           'Content-Type': 'application/json',
         }
       })
-      console.log(response);
+   
       navigate('/receta')
       setLoadTime(false)
       setExito(true)
     } catch (e) {
       setLoadTime(false)
-      console.log(e);
+
     }
   }
 

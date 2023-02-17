@@ -31,7 +31,6 @@ const RecetaPDF2 = () => {
         });
         setTextAlergias(text)
         setTextIdx(text2)
-        console.log(json2.medicamentos);
     }, [])
 
 

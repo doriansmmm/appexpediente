@@ -154,7 +154,7 @@ const RegistroUsuarioProvider = ({ children }) => {
                     }
 
                 } catch (e) {
-                    console.log(e);
+
                 }
             } else {
                 setError('Debes ingresar un código postal')

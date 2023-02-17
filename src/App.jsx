@@ -18,6 +18,9 @@ import Consulta from './components/medico/consulta/Consulta'
 import Receta from './components/medico/receta/Receta'
 import Admin from './components/admin/Admin'
 import Usuario from './components/usuario/Usuario'
+import Pacientes from './components/pacientes/Pacientes'
+import ConsultaPaciente from './components/consultapaciente/ConsultaPaciente';
+import HistorialCitasPaciente from './components/pacientes/historialpaciente/HistorialCitasPaciente'
 
 //importar context
 import { AuthProvider } from './context/AuthProvider'
@@ -42,6 +45,9 @@ export default function App() {
           <Route exact path="/receta" element={<Receta />} />
           <Route exact path="/admin" element={<Admin />} />
           <Route exact path="/usuario" element={<Usuario />} />
+          <Route exact path="/pacientes" element={<Pacientes />} />
+          <Route exact path="/consultapaciente" element={<ConsultaPaciente />} />
+          <Route exact path="/historialcitaspaciente" element={<HistorialCitasPaciente />} />
           <Route path="/" element={<Navigate replace to="/login" />} />
         </Routes>
       </AuthProvider>

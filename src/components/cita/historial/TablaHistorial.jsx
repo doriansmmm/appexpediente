@@ -11,12 +11,16 @@ import TablePagination from '@mui/material/TablePagination';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Tooltip from '@mui/material/Tooltip';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { useNavigate } from 'react-router-dom';
 
 import useHistorial from '../../../hooks/useHistorial';
+import useAuth from '../../../hooks/useAuth';
 
 const TablaHistorial = () => {
+    const navigate = useNavigate()
 
     const { citasUsuario,cancelarCita, confirmarCita } = useHistorial()
+    const {setVentana} = useAuth()
     const columns = [
         { id: 'fecha', label: 'Fecha' },
         { id: 'tipoCita', label: 'Tipo cita' },
@@ -37,6 +41,12 @@ const TablaHistorial = () => {
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
+
+    const navegar = e => {
+        localStorage.setItem('idCitaMabe', e.cGuid)        
+        setVentana('/historialcitas')
+        navigate('/consultapaciente')
+    }
     return (
         <Paper>
             <TableContainer >
@@ -59,7 +69,7 @@ const TablaHistorial = () => {
                             .map((row) => {
                                 return (
                                     <TableRow
-                                        key={row['id']}
+                                        key={row['cGuid']}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
                                         <TableCell align="center">{row['fecha']}</TableCell>
@@ -67,7 +77,7 @@ const TablaHistorial = () => {
                                         <TableCell align="center">{row['centroT']}</TableCell>
                                         <TableCell align="center">{row['stage']}</TableCell>
                                         <TableCell align="center">{row['asistencia']}</TableCell>
-                                        <TableCell align="center"><Button onClick={() => { }}>Ver mas</Button></TableCell>
+                                        {row.cCsId === 5 ?(<TableCell align="center"><Button onClick={() => navegar(row)}>Ver mas</Button></TableCell>):null}
                                         {
                                             row.asistencia !== 'Confirmada' ?(
                                         <TableCell align="center">{row['cCsId'] !== 4 && row['cCsId'] !== 5 ? (

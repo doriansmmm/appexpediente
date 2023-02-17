@@ -60,7 +60,6 @@ const HistorialMedicoProvider = ({ children }) => {
 
     } catch (e) {
       setLoadTime(false)
-      console.log(e.response);
     }
   }
 
@@ -121,7 +120,6 @@ const HistorialMedicoProvider = ({ children }) => {
 
     } catch (e) {
       setLoadTime(false)
-      console.log(e.response);
     }
   }
 

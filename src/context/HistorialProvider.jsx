@@ -36,7 +36,7 @@ const HistorialProvider = ({ children }) => {
       setLoadTime(true)
       validarToken()
       let token = localStorage.getItem('tokenid');
-      console.log(token);
+      
       const response = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/citas/citaHistorial?token=${token}&FI=${fechainicio}T00:00:00.000Z&FF=${fechafin}T23:59:00.000Z&option=1`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -51,7 +51,6 @@ const HistorialProvider = ({ children }) => {
         setCitasUsuario([]);
         setError({ band: true, texto: response.data.response })
       }else{
-        console.log(response.data.response);
         setCitasUsuario(response.data.response);
       }
       //
@@ -59,7 +58,6 @@ const HistorialProvider = ({ children }) => {
 
     } catch (e) {
       setLoadTime(false)
-      console.log(e.response);
     }
   }
   
@@ -92,7 +90,6 @@ const HistorialProvider = ({ children }) => {
         setCitasUsuario([]);
         setError({ band: true, texto: response2.data.response })
       }else{
-        console.log(response2.data.response);
         setCitasUsuario(response2.data.response);
       }
       if (typeof response.data.response === "string") {
@@ -104,7 +101,6 @@ const HistorialProvider = ({ children }) => {
 
     } catch (e) {
       setLoadTime(false)
-      //console.log(response.data.response);
     }
   }
   const confirmarCita = async (cguidCita) => {
@@ -112,8 +108,7 @@ const HistorialProvider = ({ children }) => {
       setLoadTime(true)
       validarToken()
       let token = localStorage.getItem('tokenid');
-      console.log(token);
-      console.log(cguidCita)
+      
       const response = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/citas/confirmacionCitaApp?cGuid=${cguidCita}&token=${token}`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -137,7 +132,6 @@ const HistorialProvider = ({ children }) => {
         setCitasUsuario([]);
         setError({ band: true, texto: response2.data.response })
       }else{
-        console.log(response2.data.response);
         setCitasUsuario(response2.data.response);
       }
       if (typeof response.data.response === "string") {
@@ -149,7 +143,6 @@ const HistorialProvider = ({ children }) => {
 
     } catch (e) {
       setLoadTime(false)
-      //console.log(response.data.response);
     }
   }
 

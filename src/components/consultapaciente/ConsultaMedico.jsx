@@ -26,10 +26,12 @@ import Firmar from './Firmar'
 import DatosPaciente from './DatosPaciente';
 import DatosConsulta from './DatosConsulta';
 import DatosMedicamentos from './DatosMedicamentos';
+import DatosMedico from './DatosMedico';
+
 
 //importar funciones
-import useAuth from '../../../hooks/useAuth';
-import useConsulta from '../../../hooks/useConsulta';
+import useAuth from '../../hooks/useAuth';
+import useConsultaPaciente from '../../hooks/useConsultaPaciente';
 
 const { palette } = createTheme();
 const { augmentColor } = palette;
@@ -41,18 +43,18 @@ const theme = createTheme({
     }
 });
 
-const steps = ['Datos del paciente', 'Consulta', 'Medicamentos'];
+const steps = ['Datos del médico', 'Datos del paciente', 'Consulta', 'Medicamentos'];
 const ConsultaMedico = () => {
 
     const navigate = useNavigate()
 
     const { validarToken } = useAuth()
 
-    const { getDetallesCita, datos, crearCita, setError, setBandUltDiagn, bandUltDiagn } = useConsulta()
+    const { getDetallesCita, datos, setError, setBandUltDiagn } = useConsultaPaciente()
 
     useEffect(() => {
         validarToken()
-        const idcitacreada = localStorage.getItem('idcita')
+        const idcitacreada = localStorage.getItem('idCitaMabe')     
         getDetallesCita(idcitacreada)
         // eslint-disable-next-line
     }, [])
@@ -71,74 +73,8 @@ const ConsultaMedico = () => {
             newSkipped = new Set(newSkipped.values());
             newSkipped.delete(activeStep);
         }
-        const {
-            pacienteEdad,
-            pacienteTa,
-            pacienteFrecCar,
-            pacienteFrecResp,
-            pacienteSato,
-            pacienteTemp,
-            pacientePeso,
-            pacienteTalla,
-            alergias,
-            pacienteExploracion,
-            pacientePlan,
-            diagnosticos,
-            sintomas,
-            medicamentos
-        } = datos
-
-        if (activeStep === 0) {
-
-            if (pacienteEdad == "" || pacienteEdad == 0) {
-                setError({ band: true, texto: "Debes ingresar la edad" })
-                return
-            } else if (pacienteTa == "") {
-                setError({ band: true, texto: "Debes ingresar la T/A" })
-                return
-            } else if (pacienteFrecCar == "") {
-                setError({ band: true, texto: "Debes ingresar la frecuencia cardíaca" })
-                return
-            } else if (pacienteFrecResp == "") {
-                setError({ band: true, texto: "Debes ingresar la frecuencia respiratoria" })
-                return
-            } else if (pacienteSato == "") {
-                setError({ band: true, texto: "Debes ingresar el campo SATO 2%" })
-                return
-            } else if (pacienteTemp == "") {
-                setError({ band: true, texto: "Debes ingresar la temperatura" })
-                return
-            } else if (pacientePeso == "") {
-                setError({ band: true, texto: "Debes ingresar el peso" })
-                return
-            } else if (pacienteTalla == "") {
-                setError({ band: true, texto: "Debes ingresar la Talla" })
-                return
-            } else if (alergias.length <= 0 || alergias.length == undefined) {
-                setError({ band: true, texto: "Debes ingresar al menos una alergia" })
-                return
-            }
-        } else if (activeStep === 1) {
-            if (pacienteExploracion == "") {
-                setError({ band: true, texto: "Debes ingresar la exploración física" })
-                return
-            } else if (pacientePlan == "") {
-                setError({ band: true, texto: "Debes ingresar el plan" })
-                return
-            } else if (diagnosticos.length <= 0 || diagnosticos.length == undefined) {
-                setError({ band: true, texto: "Debes ingresar al menos un diagnostico" })
-                return
-            } else if (sintomas.length <= 0 || sintomas.length == undefined) {
-                setError({ band: true, texto: "Debes ingresar al menos un síntoma" })
-                return
-            }
-        } else if (activeStep === 2) {
-            if (medicamentos.length <= 0 || medicamentos.length == undefined) {
-                setError({ band: true, texto: "Debes ingresar al menos un medicamento" })
-                return
-            }
-        }
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        activeStep === steps.length - 1 ? setActiveStep(0): setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        
         setSkipped(newSkipped);
     };
 
@@ -147,28 +83,21 @@ const ConsultaMedico = () => {
     };
 
     const handleReset = () => {
-        const imagenn = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAAtJREFUGFdjYAACAAAFAAGq1chRAAAAAElFTkSuQmCC"
-        const {
-            medicoFirma
-        } = datos
-        if (medicoFirma == imagenn || medicoFirma == "") {
-            setError({ band: true, texto: "Debes ingresar la firma" })
-            return
-        }
-        crearCita()
-
-        //setActiveStep(0);
+        setActiveStep(0);
     };
 
     const Componentes = () => {
+        
         switch (activeStep + 1) {
             case 1:
+                return <DatosMedico/>
+            case 2:
                 return <DatosPaciente />
                 break;
-            case 2:
+            case 3:
                 return <DatosConsulta />
                 break;
-            case 3:
+            case 4:
                 return <DatosMedicamentos />
                 break
         }
@@ -194,10 +123,7 @@ const ConsultaMedico = () => {
                         Consulta
                     </Typography>
                 </Box>
-                <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                    <Box sx={{ flex: '1 1 auto' }} />
-                    <Button style={{background: "#008aa7", color: "#fff", marginBottom: "5px"}} onClick={() => {setBandUltDiagn(true)}}>Último diagnóstico</Button>
-                </Box>
+               
                 <Box>
                     <Stepper activeStep={activeStep}>
                         {steps.map((label, index) => {
@@ -230,7 +156,7 @@ const ConsultaMedico = () => {
                                 </Button>
                                 <Box sx={{ flex: '1 1 auto' }} />
 
-                                <Button onClick={handleReset}>Registrar</Button>
+                                <Button onClick={handleReset}>Inicio</Button>
                             </Box>
 
                         </Fragment>
@@ -254,7 +180,7 @@ const ConsultaMedico = () => {
                                 <Box sx={{ flex: '1 1 auto' }} />
 
                                 <Button onClick={handleNext}>
-                                    {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
+                                    {activeStep === steps.length - 1 ? 'Inicio' : 'Siguiente'}
                                 </Button>
                             </Box>
                         </Fragment>

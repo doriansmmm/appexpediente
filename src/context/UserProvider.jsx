@@ -19,7 +19,6 @@ const UserProvider = ({ children }) => {
     const [datosUsuario, setDatosUsuario] = useState({
         userGuid: '',
         userNombre: '',
-        userNombre: '',
         userSApellido: '',
         userEmail: '',
         userPhone: 0,
@@ -64,6 +63,7 @@ const UserProvider = ({ children }) => {
 
     useEffect(() => {
         getInicial()
+        // eslint-disable-next-line
     }, [])
     useEffect(() => {
         let json = localStorage.getItem('jsondatosuser')
@@ -99,17 +99,17 @@ const UserProvider = ({ children }) => {
 
             let tokens = localStorage.getItem('tokenid');
             const getGuid = roles.find(e=> e.rolId === datosUsuario.userRolId)
+            // eslint-disable-next-line
             const response = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/admin/updateUserRol?token=${tokens}&userG=${datosUsuario.userGuid}&rolG=${getGuid.rolGuid}`)
-            //setRoles(response.data.response)
-            if(getGuid.rolId===2){
-                console.log(datosUsuario.userGuid);
+            
+            if(getGuid.rolId===2){          
                 const json = {
                     "medUniversidad": datosUsuario.medUniversidad !== null ? datosUsuario.medUniversidad: 's',
                     "medCedula": datosUsuario.medCedula !== null ? datosUsuario.medCedula: 's',
                     "medLogo": datosUsuario.medLogo!==null ?datosUsuario.medLogo: 's',
                     "medTitulo": datosUsuario.medTitulo !== null ? datosUsuario.medTitulo:'s'
                   }
-                  //console.log(json);
+                // eslint-disable-next-line
                 const response = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/admin/updateDR?token=${tokens}&medG=${datosUsuario.userGuid}`, json)
             }
 

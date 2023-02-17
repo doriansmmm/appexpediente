@@ -1,33 +1,29 @@
-import axios from "axios";
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+
 import useAuth from "../hooks/useAuth";
 
-const AdminContext = createContext()
+const client = axios.create({
+    baseURL: "https://mabeexpedientemedico.azurewebsites.net/api/"
+});
 
-const AdminProvider = ({ children }) => {
-    const navigate = useNavigate()
+const PacientesContext = createContext()
 
-    const { validarToken } = useAuth()
-
-    const [error, setError] = useState({
-        band: false,
-        texto: ''
-    })
-
-    const [ datosFiltros, setDatosFiltros ] = useState({
+const PacientesProvider = ({ children }) => {
+    const {validarToken} = useAuth()
+    
+    const [error, setError] = useState('')
+    const [loadTime, setLoadTime] = useState(false)
+    const [datosFiltros, setDatosFiltros] = useState({
         userNombre: '',
         userPApellido: '',
         userSApellido: '',
         userEmail: '',
         userRolDesc: ''
     })
-
-    const [loadTime, setLoadTime] = useState(false)
-    const [ usuarios, setUsuarios] = useState([])
-    const [ usuariosFiltro, setUsuariosFiltro] = useState([])
-    const [roles, setRoles] = useState([])
-
+    const [usuarios, setUsuarios] = useState([])
+    const [usuariosFiltro, setUsuariosFiltro] = useState([])
     const handleChange = e => {
         setDatosFiltros({
             ...datosFiltros,
@@ -36,27 +32,20 @@ const AdminProvider = ({ children }) => {
     }
 
     const getUsuarios = async () => {
-        try{
-            validarToken()
+        try {
             setLoadTime(true)
+            validarToken()
             let tokens = localStorage.getItem('tokenid');   
-            const response = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/admin/getUsers?token=${tokens}`)
-                  
-            const response2 = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/rol/getroles?token=${tokens}`)
-            setRoles(response2.data.response)
-
-            /*const array = response.data.response.map(e => ( {
-                ...e,
-                userRolDesc: response2.data.response.find(i => i.rolId == e.userRolId).rolDesc
-            }))*/
-            setUsuarios(response.data.response);
-            setUsuariosFiltro(response.data.response);      
+            
+            const response = await client.post(`/admin/getUsersDR?token=${tokens}`)
+    
+            setUsuarios(response.data.response)
+            setUsuariosFiltro(response.data.response)
             setLoadTime(false)
-        }catch(e){
+        } catch (e) {
             setLoadTime(false)
         }
     }
-
     const filtrar = () => {
         const { userNombre, userPApellido, userSApellido, userEmail, userRolDesc } = datosFiltros
 
@@ -69,36 +58,31 @@ const AdminProvider = ({ children }) => {
         )
         setUsuariosFiltro(filtrarArray)
     }
-
     useEffect(() => {
         getUsuarios()
     }, [])
-
     useEffect(() => {
         filtrar()
     }, [datosFiltros])
 
     return (
-        <AdminContext.Provider
+        <PacientesContext.Provider
             value={{
                 setError,
                 error,
                 loadTime,
-                getUsuarios,
-                usuarios,
-                usuariosFiltro,
                 datosFiltros,
                 handleChange,
-                roles
+                usuariosFiltro
             }}
         >
             {children}
-        </AdminContext.Provider>
+        </PacientesContext.Provider>
     )
 }
 
 export {
-    AdminProvider
+    PacientesProvider
 }
 
-export default AdminContext
+export default PacientesContext

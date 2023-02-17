@@ -33,7 +33,6 @@ export default function PopupArchivos() {
         setBandArchivos(false);        
     };
     const insertar = async () => {
-        console.log(archivos);
         const f = new FormData()
         if (archivos !== null) {
             for (let i = 0; i < archivos.length; i++) {
@@ -41,7 +40,6 @@ export default function PopupArchivos() {
             }
         }
         setBandArchivos(false);
-        console.log(f);
     }
 
     return (

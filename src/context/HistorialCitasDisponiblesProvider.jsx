@@ -47,7 +47,7 @@ const HistorialCitasDisponiblesProvider = ({ children }) => {
         setError({ band: true, texto: response.data.response })
       }else{
         const filterArray = response.data.response.filter((e) => e.cMedId===0)
-        console.log(filterArray);
+
         setCitasUsuario(filterArray);
       }
       //
@@ -55,7 +55,7 @@ const HistorialCitasDisponiblesProvider = ({ children }) => {
 
     } catch (e) {
       setLoadTime(false)
-      console.log(e.response);
+
     }
   }
 

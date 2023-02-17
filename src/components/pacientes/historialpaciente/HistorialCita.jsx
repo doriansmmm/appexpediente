@@ -14,12 +14,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 
 //importar componentes
-import Navbar from '../Navbar';
+import Navbar from '../../Navbar';
 import TablaHistorial from './TablaHistorial'
 
 //importar funciones
 import useAuth from '../../../hooks/useAuth';
-import useHistorialMedico from '../../../hooks/useHistorialMedico';
+import useHistorialCitasPaciente from '../../../hooks/useHistorialCitasPaciente';
 import { useState } from 'react';
 
 const { palette } = createTheme();
@@ -34,22 +34,20 @@ const theme = createTheme({
 
 const HistorialCita = () => {
 
-    const navigate = useNavigate()
-
     const { validarToken } = useAuth()
 
-    const { citasUsuario, consultarCitas, datos, setError } = useHistorialMedico()
+    const { consultarCitas, setError } = useHistorialCitasPaciente()
     //const { fechaInicio } = datos
-    const [fechas, setFechas] = useState({
+    const [ fechas, setFechas ] = useState({
         fechaInicioFiltro: dateformat(new Date(), "yyyy-mm-dd"),
         fechaFinFiltro: dateformat(new Date(), "yyyy-mm-dd")
     })
 
     const { fechaInicioFiltro, fechaFinFiltro } = fechas
 
+    
 
-
-
+    
 
     useEffect(() => {
         validarToken()
@@ -57,31 +55,31 @@ const HistorialCita = () => {
     }, [])
     function validarFechas() {
         if (new Date(fechaFinFiltro) < new Date(fechaInicioFiltro)) {
-
-            setError({ band: true, texto: 'La fecha fin debe ser igual o superior a la fecha inicio' })
+        
+            setError({ band: true, texto: 'La fecha fin debe ser igual o superior a la fecha inicio'})
             setFechas({
                 ...fechas,
                 fechaFinFiltro: fechaInicioFiltro
             })
             return true
-
-        } else {
+            
+          } else {
             consultarCitas(fechaInicioFiltro, fechaFinFiltro)
-            setError({ band: false, texto: '' })
+            setError({band: false, texto: ''})
             return false
-        }
+          }
     }
     useEffect(() => {
         validarFechas()
-    }, [fechaInicioFiltro, fechaFinFiltro])
+    }, [ fechaInicioFiltro ,fechaFinFiltro])
 
 
     const handleChange = (event) => {
         setFechas({
-            ...fechas,
-            [event.target.name]: event.target.value
+          ...fechas,
+          [event.target.name]: event.target.value
         });
-    };
+      };
 
     return (
         <ThemeProvider theme={theme}>
@@ -98,7 +96,7 @@ const HistorialCita = () => {
                 >
 
                     <Typography component="h1" variant="h4">
-                        Historial citas del médico
+                        Historial citas
                     </Typography>
                 </Box>
                 <Box sx={{
@@ -116,7 +114,7 @@ const HistorialCita = () => {
                                 type="date"
                                 value={fechaInicioFiltro}
                                 fullWidth
-                                style={{ height: '50px' }}
+                                style={{height: '50px'}}
                                 onChange={handleChange}
                                 InputLabelProps={{
                                     shrink: true,
@@ -139,28 +137,6 @@ const HistorialCita = () => {
                                 }
                                 } />
 
-                        </Grid>
-                        <Grid item lg={2} sm={6} xs={12}>
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                style={{ backgroundColor: "#008aa7" }}
-                                onClick={() => navigate('/citasdisponibles')}
-                            >
-                                Citas disponibles
-                            </Button>
-                        </Grid>
-                        <Grid item lg={2} sm={6} xs={12}>
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                style={{ backgroundColor: "#008aa7" }}
-                                onClick={() => navigate('/pacientes')}
-                            >
-                                Pacientes
-                            </Button>
                         </Grid>
                         <Grid item lg={12} sm={12} xs={12}>
                             <TablaHistorial />
