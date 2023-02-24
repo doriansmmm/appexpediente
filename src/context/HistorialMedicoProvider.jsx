@@ -38,7 +38,7 @@ const HistorialMedicoProvider = ({ children }) => {
       validarToken()
       let token = localStorage.getItem('tokenid');
 
-      const response = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/citas/citaHistorial?token=${token}&FI=${fechainicio}T00:00:00.000Z&FF=${fechafin}T18:30:00.000Z&option=3`, {
+      const response = await axios.post(`https://apiexpedientemedicoapi.azurewebsites.net/api/citas/citaHistorial?token=${token}&FI=${fechainicio}T00:00:00.000Z&FF=${fechafin}T18:30:00.000Z&option=3`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE',
@@ -70,7 +70,7 @@ const HistorialMedicoProvider = ({ children }) => {
       let token = localStorage.getItem('tokenid');
       
       
-      const response = await axios.get(`https://mabeexpedientemedico.azurewebsites.net/api/recetass/GetRecetaByCita?citaGuid=${cguidCita}`, {
+      const response = await axios.get(`https://apiexpedientemedicoapi.azurewebsites.net/api/recetass/GetRecetaByCita?citaGuid=${cguidCita}`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE',

@@ -32,7 +32,7 @@ const HistorialCitasDisponiblesProvider = ({ children }) => {
       validarToken()
       let token = localStorage.getItem('tokenid');
       
-      const response = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/citas/citaHistorial?token=${token}&FI=${fechaInicio}T00:00:00.000Z&FF=${fechaFin}T18:30:00.000Z&option=2`, {
+      const response = await axios.post(`https://apiexpedientemedicoapi.azurewebsites.net/api/citas/citaHistorial?token=${token}&FI=${fechaInicio}T00:00:00.000Z&FF=${fechaFin}T18:30:00.000Z&option=2`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE',
@@ -64,7 +64,7 @@ const HistorialCitasDisponiblesProvider = ({ children }) => {
       setLoadTime(true)
       validarToken()
       let token = localStorage.getItem('tokenid');
-      const response = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/citas/asignarCita?token=${token}&citaG=${guid}`, {
+      const response = await axios.post(`https://apiexpedientemedicoapi.azurewebsites.net/api/citas/asignarCita?token=${token}&citaG=${guid}`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE',

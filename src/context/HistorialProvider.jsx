@@ -37,7 +37,7 @@ const HistorialProvider = ({ children }) => {
       validarToken()
       let token = localStorage.getItem('tokenid');
       
-      const response = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/citas/citaHistorial?token=${token}&FI=${fechainicio}T00:00:00.000Z&FF=${fechafin}T23:59:00.000Z&option=1`, {
+      const response = await axios.post(`https://apiexpedientemedicoapi.azurewebsites.net/api/citas/citaHistorial?token=${token}&FI=${fechainicio}T00:00:00.000Z&FF=${fechafin}T23:59:00.000Z&option=1`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE',
@@ -67,7 +67,7 @@ const HistorialProvider = ({ children }) => {
       validarToken()
       let token = localStorage.getItem('tokenid');
       
-      const response = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/citas/cancelDate?guidDate=${cguidCita}&token=${token}`, {
+      const response = await axios.post(`https://apiexpedientemedicoapi.azurewebsites.net/api/citas/cancelDate?guidDate=${cguidCita}&token=${token}`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE',
@@ -76,7 +76,7 @@ const HistorialProvider = ({ children }) => {
         }
       })
       
-      const response2 = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/citas/citaHistorial?token=${token}&FI=${fechaInicio}T00:00:00.000Z&FF=${fechaFin}T23:59:00.000Z&option=1`, {
+      const response2 = await axios.post(`https://apiexpedientemedicoapi.azurewebsites.net/api/citas/citaHistorial?token=${token}&FI=${fechaInicio}T00:00:00.000Z&FF=${fechaFin}T23:59:00.000Z&option=1`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE',
@@ -109,7 +109,7 @@ const HistorialProvider = ({ children }) => {
       validarToken()
       let token = localStorage.getItem('tokenid');
       
-      const response = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/citas/confirmacionCitaApp?cGuid=${cguidCita}&token=${token}`, {
+      const response = await axios.post(`https://apiexpedientemedicoapi.azurewebsites.net/api/citas/confirmacionCitaApp?cGuid=${cguidCita}&token=${token}`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE',
@@ -118,7 +118,7 @@ const HistorialProvider = ({ children }) => {
         }
       })
       
-      const response2 = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/citas/citaHistorial?token=${token}&FI=${fechaInicio}T00:00:00.000Z&FF=${fechaFin}T23:59:00.000Z&option=1`, {
+      const response2 = await axios.post(`https://apiexpedientemedicoapi.azurewebsites.net/api/citas/citaHistorial?token=${token}&FI=${fechaInicio}T00:00:00.000Z&FF=${fechaFin}T23:59:00.000Z&option=1`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE',

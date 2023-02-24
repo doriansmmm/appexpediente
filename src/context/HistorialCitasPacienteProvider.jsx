@@ -37,7 +37,7 @@ const HistorialCitasPacienteProvider = ({ children }) => {
       validarToken()
       let token = localStorage.getItem('tokenid');
       const guidPaciente = localStorage.getItem('idguidpaciente')
-      const response = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/citas/citaHistorialbyClientGuid?token=${token}&FI=${fechainicio}&FF=${fechafin}&clientGuid=${guidPaciente}`, {
+      const response = await axios.post(`https://apiexpedientemedicoapi.azurewebsites.net/api/citas/citaHistorialbyClientGuid?token=${token}&FI=${fechainicio}&FF=${fechafin}&clientGuid=${guidPaciente}`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE',

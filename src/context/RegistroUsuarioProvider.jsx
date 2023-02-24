@@ -79,7 +79,7 @@ const RegistroUsuarioProvider = ({ children }) => {
 
     const countryApi = async () => {
         try {
-            const response = await axios.get('https://mabeexpedientemedico.azurewebsites.net/api/countriess', {
+            const response = await axios.get('https://apiexpedientemedicoapi.azurewebsites.net/api/countriess', {
                 headers: {
 
                     'Access-Control-Allow-Origin': '*',
@@ -100,7 +100,7 @@ const RegistroUsuarioProvider = ({ children }) => {
     const statesApi = async (id) => {
         try {
             if (id !== '') {
-                const response = await axios.get(`https://mabeexpedientemedico.azurewebsites.net/api/states?guid=${id}`, {
+                const response = await axios.get(`https://apiexpedientemedicoapi.azurewebsites.net/api/states?guid=${id}`, {
                     headers: {
 
                         'Access-Control-Allow-Origin': '*',
@@ -130,7 +130,7 @@ const RegistroUsuarioProvider = ({ children }) => {
                 setError('')
                 try {
 
-                    const response = await axios.get(`https://mabeexpedientemedico.azurewebsites.net/api/cp?stateguid=${guid}&cp=${cp}`, {
+                    const response = await axios.get(`https://apiexpedientemedicoapi.azurewebsites.net/api/cp?stateguid=${guid}&cp=${cp}`, {
                         headers: {
 
                             'Access-Control-Allow-Origin': '*',
@@ -166,7 +166,7 @@ const RegistroUsuarioProvider = ({ children }) => {
     const centrosTrabajoApi = async (guid) => {
         try {
 
-            const response = await axios.get(`https://mabeexpedientemedico.azurewebsites.net/api/entrodetrabajo?stateGuid=${guid}`, {
+            const response = await axios.get(`https://apiexpedientemedicoapi.azurewebsites.net/api/entrodetrabajo?stateGuid=${guid}`, {
                 headers: {
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE',
@@ -188,7 +188,7 @@ const RegistroUsuarioProvider = ({ children }) => {
 
     const createUser = async () => {
         // eslint-disable-next-line
-        const response = await axios.post('https://mabeexpedientemedico.azurewebsites.net/api/users/create', usuario, {
+        const response = await axios.post('https://apiexpedientemedicoapi.azurewebsites.net/api/users/create', usuario, {
             headers: {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE',

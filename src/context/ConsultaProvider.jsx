@@ -179,7 +179,7 @@ const ConsultaProvider = ({ children }) => {
       let json = localStorage.getItem('jsonexpmed')
       const json2 = JSON.parse(json)      
       
-      const response = await axios.get(`https://mabeexpedientemedico.azurewebsites.net/api/citas/citaDetail?cGuid=${e}`, {
+      const response = await axios.get(`https://apiexpedientemedicoapi.azurewebsites.net/api/citas/citaDetail?cGuid=${e}`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE',
@@ -222,7 +222,7 @@ const ConsultaProvider = ({ children }) => {
         ultimoDiagnostico: response.data.response.uDiagnostico
       })
       
-      const responseAlergias = await axios.get(`https://mabeexpedientemedico.azurewebsites.net/api/alergia/all?token=${tokens}`, {
+      const responseAlergias = await axios.get(`https://apiexpedientemedicoapi.azurewebsites.net/api/alergia/all?token=${tokens}`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE',
@@ -231,7 +231,7 @@ const ConsultaProvider = ({ children }) => {
         }
       })
       setAlergiasCatalogo(responseAlergias.data.response);
-      const responseDiagnostico = await axios.get(`https://mabeexpedientemedico.azurewebsites.net/api/diagnostico/all?token=${tokens}`, {
+      const responseDiagnostico = await axios.get(`https://apiexpedientemedicoapi.azurewebsites.net/api/diagnostico/all?token=${tokens}`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE',
@@ -241,7 +241,7 @@ const ConsultaProvider = ({ children }) => {
       })
       setDiagnosticoCatalogo(responseDiagnostico.data.response);
       
-      const responseMedicamentos = await axios.get(`https://mabeexpedientemedico.azurewebsites.net/all?token=${tokens}`, {
+      const responseMedicamentos = await axios.get(`https://apiexpedientemedicoapi.azurewebsites.net/all?token=${tokens}`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE',
@@ -305,7 +305,7 @@ const ConsultaProvider = ({ children }) => {
         }
       }
       
-      const response = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/recetass/create`, json, {
+      const response = await axios.post(`https://apiexpedientemedicoapi.azurewebsites.net/api/recetass/create`, json, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE',

@@ -40,9 +40,9 @@ const AdminProvider = ({ children }) => {
             validarToken()
             setLoadTime(true)
             let tokens = localStorage.getItem('tokenid');   
-            const response = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/admin/getUsers?token=${tokens}`)
+            const response = await axios.post(`https://apiexpedientemedicoapi.azurewebsites.net/api/admin/getUsers?token=${tokens}`)
                   
-            const response2 = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/rol/getroles?token=${tokens}`)
+            const response2 = await axios.post(`https://apiexpedientemedicoapi.azurewebsites.net/api/rol/getroles?token=${tokens}`)
             setRoles(response2.data.response)
 
             /*const array = response.data.response.map(e => ( {

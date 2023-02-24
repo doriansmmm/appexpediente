@@ -45,7 +45,7 @@ const UserProvider = ({ children }) => {
 
 
             let tokens = localStorage.getItem('tokenid');
-            const response = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/rol/getroles?token=${tokens}`)
+            const response = await axios.post(`https://apiexpedientemedicoapi.azurewebsites.net/api/rol/getroles?token=${tokens}`)
             setRoles(response.data.response)
 
             setLoadTime(false)
@@ -100,7 +100,7 @@ const UserProvider = ({ children }) => {
             let tokens = localStorage.getItem('tokenid');
             const getGuid = roles.find(e=> e.rolId === datosUsuario.userRolId)
             // eslint-disable-next-line
-            const response = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/admin/updateUserRol?token=${tokens}&userG=${datosUsuario.userGuid}&rolG=${getGuid.rolGuid}`)
+            const response = await axios.post(`https://apiexpedientemedicoapi.azurewebsites.net/api/admin/updateUserRol?token=${tokens}&userG=${datosUsuario.userGuid}&rolG=${getGuid.rolGuid}`)
             
             if(getGuid.rolId===2){          
                 const json = {
@@ -110,7 +110,7 @@ const UserProvider = ({ children }) => {
                     "medTitulo": datosUsuario.medTitulo !== null ? datosUsuario.medTitulo:'s'
                   }
                 // eslint-disable-next-line
-                const response = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/admin/updateDR?token=${tokens}&medG=${datosUsuario.userGuid}`, json)
+                const response = await axios.post(`https://apiexpedientemedicoapi.azurewebsites.net/api/admin/updateDR?token=${tokens}&medG=${datosUsuario.userGuid}`, json)
             }
 
             

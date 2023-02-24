@@ -6,7 +6,7 @@ import useAuth from "../hooks/useAuth";
 const ConsultaPacienteContext = createContext()
 
 const client = axios.create({
-    baseURL: "https://mabeexpedientemedico.azurewebsites.net/api"
+    baseURL: "https://apiexpedientemedicoapi.azurewebsites.net/api"
 });
 
 

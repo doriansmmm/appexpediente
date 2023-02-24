@@ -16,7 +16,7 @@ const LoginProvider = ({ children }) => {
 
             try {
 
-                const response = await axios.post(`https://mabeexpedientemedico.azurewebsites.net/api/users/login?mail=${mail}&pass=${pass}`, {
+                const response = await axios.post(`https://apiexpedientemedicoapi.azurewebsites.net/api/users/login?mail=${mail}&pass=${pass}`, {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                         'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE',
