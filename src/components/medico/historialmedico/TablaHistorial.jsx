@@ -82,7 +82,7 @@ const TablaHistorial = () => {
                                         <TableCell key="Paciente" align="center">{row['paciente']}</TableCell>
                                         <TableCell key="Estatus" align="center">{row['stage']}</TableCell>
                                         <TableCell key="centroTrabajo" align="center">{row['centroT']}</TableCell>
-                                        <TableCell key="Acciones" align="center">{row['stage'] === "finalizada" ? (<Tooltip title="Ver receta"><AssignmentIcon onClick={() => consultarReceta(row['cGuid'])} style={{ cursor: 'pointer', margin: "5px", color: "#CF2908" }}/></Tooltip>):null}</TableCell>
+                                        <TableCell key="Acciones" align="center">{row['stage'].toLowerCase() === "finalizada" ? (<Tooltip title="Ver receta"><AssignmentIcon onClick={() => consultarReceta(row['cGuid'])} style={{ cursor: 'pointer', margin: "5px", color: "#CF2908" }}/></Tooltip>):null}</TableCell>
                                         <TableCell align="center">{row['cCsId'] === 2 || row['cCsId'] === 3 ? (<Button onClick={() => getConsulta(row['cGuid'])}>Ver mas</Button>): row['cCsId'] === 5 ? (<Button onClick={() => getDetalles(row['cGuid'])}>Ver mas</Button>):null
                                         }</TableCell>
                                             

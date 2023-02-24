@@ -37,7 +37,8 @@ const HistorialMedicoProvider = ({ children }) => {
       setLoadTime(true)
       validarToken()
       let token = localStorage.getItem('tokenid');
-
+      console.log("11111111111");
+      console.log("222222222222");
       const response = await axios.post(`https://apiexpedientemedicoapi.azurewebsites.net/api/citas/citaHistorial?token=${token}&FI=${fechainicio}T00:00:00.000Z&FF=${fechafin}T18:30:00.000Z&option=3`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -46,7 +47,9 @@ const HistorialMedicoProvider = ({ children }) => {
           'Content-Type': 'application/json',
         }
       })
-
+      console.log("11111111111");
+      console.log(response.data.response);
+      console.log("222222222222");
       if (typeof response.data.response === "string") {
 
         setCitasUsuario([]);

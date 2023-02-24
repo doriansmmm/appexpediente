@@ -36,7 +36,8 @@ const HistorialProvider = ({ children }) => {
       setLoadTime(true)
       validarToken()
       let token = localStorage.getItem('tokenid');
-      
+      console.log(fechaInicio);
+      console.log(token);
       const response = await axios.post(`https://apiexpedientemedicoapi.azurewebsites.net/api/citas/citaHistorial?token=${token}&FI=${fechainicio}T00:00:00.000Z&FF=${fechafin}T23:59:00.000Z&option=1`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -58,6 +59,8 @@ const HistorialProvider = ({ children }) => {
 
     } catch (e) {
       setLoadTime(false)
+      console.log(e);
+      setError({ band: true, texto: "No hay citas entre el 24/2/2023 y el 24/2/2023" })
     }
   }
   

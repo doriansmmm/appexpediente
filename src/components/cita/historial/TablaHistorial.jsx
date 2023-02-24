@@ -19,8 +19,8 @@ import useAuth from '../../../hooks/useAuth';
 const TablaHistorial = () => {
     const navigate = useNavigate()
 
-    const { citasUsuario,cancelarCita, confirmarCita } = useHistorial()
-    const {setVentana} = useAuth()
+    const { citasUsuario, cancelarCita, confirmarCita } = useHistorial()
+    const { setVentana } = useAuth()
     const columns = [
         { id: 'fecha', label: 'Fecha' },
         { id: 'tipoCita', label: 'Tipo cita' },
@@ -31,7 +31,7 @@ const TablaHistorial = () => {
         { id: 'Acciones', label: 'Acciones' }
     ];
     // eslint-disable-next-line
- 
+
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const handleChangeRowsPerPage = (event) => {
@@ -43,7 +43,7 @@ const TablaHistorial = () => {
     };
 
     const navegar = e => {
-        localStorage.setItem('idCitaMabe', e.cGuid)        
+        localStorage.setItem('idCitaMabe', e.cGuid)
         setVentana('/historialcitas')
         navigate('/consultapaciente')
     }
@@ -77,18 +77,18 @@ const TablaHistorial = () => {
                                         <TableCell align="center">{row['centroT']}</TableCell>
                                         <TableCell align="center">{row['stage']}</TableCell>
                                         <TableCell align="center">{row['asistencia']}</TableCell>
-                                        {row.cCsId === 5 ?(<TableCell align="center"><Button onClick={() => navegar(row)}>Ver mas</Button></TableCell>):null}
+                                        {row.cCsId === 5 ? (<TableCell align="center"><Button onClick={() => navegar(row)}>Ver mas</Button></TableCell>) : null}
                                         {
-                                            row.asistencia !== 'Confirmada' ?(
-                                        <TableCell align="center">{row['cCsId'] !== 4 && row['cCsId'] !== 5 ? (
-                                        <><Tooltip title="Confirmar cita">
-                                            <CheckCircleIcon onClick={() => confirmarCita(row['cGuid'])} style={{ cursor: 'pointer', margin: "5px", color: "#36B04B" }}/>
-                                        </Tooltip>
-                                        <Tooltip title="Cancelar cita">
-                                            <CancelIcon onClick={() => cancelarCita(row['cGuid'])} style={{ cursor: 'pointer', margin: "5px", color: "#CF2908" }}/>
-                                        </Tooltip></>
-                                        ):null}</TableCell>):null
-                            }
+                                            row.asistencia !== 'Confirmada' ? (
+                                                <TableCell align="center">{row['cCsId'] !== 4 && row['cCsId'] !== 5 ? (
+                                                    <><Tooltip title="Confirmar cita">
+                                                        <CheckCircleIcon onClick={() => confirmarCita(row['cGuid'])} style={{ cursor: 'pointer', margin: "5px", color: "#36B04B" }} />
+                                                    </Tooltip>
+                                                        <Tooltip title="Cancelar cita">
+                                                            <CancelIcon onClick={() => cancelarCita(row['cGuid'])} style={{ cursor: 'pointer', margin: "5px", color: "#CF2908" }} />
+                                                        </Tooltip></>
+                                                ) : null}</TableCell>) : null
+                                        }
                                     </TableRow>
                                 );
                             })}
